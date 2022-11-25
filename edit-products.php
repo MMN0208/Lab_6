@@ -40,7 +40,7 @@
                                 <a class="nav-link" aria-current="page" href="index.php?page=products">Products</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="ndex.php?page=add-products">Add Products</a>
+                                <a class="nav-link" aria-current="page" href="index.php?page=add-products">Add Products</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="index.php?page=logout">Logout</a>
