@@ -77,7 +77,7 @@
                                         <div class="col-md-5 mb-5">
                                             <label for="">Category</label>
                                             <select name="category" class="form-select form-control" required>
-                                                <option selected>Select Category</option>
+                                                <option value="">Select Category</option>
                                                 <option value="iPhone">iPhone</option>
                                                 <option value="iPad">iPad</option>
                                                 <option value="Mac">Mac</option>
