@@ -50,13 +50,13 @@
             </nav>
         </div>
 
-        <div class="content">
+        <div id="content" class="mt-4">
             <section class="vh-100" style="background-color: #000;">
-                <div class="container py-5 h-100">
+                <div class="container h-100">
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-md-10">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header d-flex align-items-center">
                                     <h2>Add Product <?php echo $processing_check ?></h2>
                                 </div>
                                 <div class="card-body p-5">
@@ -77,7 +77,7 @@
                                         <div class="col-md-5 mb-5">
                                             <label for="">Category</label>
                                             <select name="category" class="form-select form-control" required>
-                                                <option selected>Select Category</option>
+                                                <option value="">Select Category</option>
                                                 <option value="iPhone">iPhone</option>
                                                 <option value="iPad">iPad</option>
                                                 <option value="Mac">Mac</option>

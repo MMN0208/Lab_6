@@ -1,10 +1,7 @@
 <?php
     session_start();
-    if(!isset($_SESSION['first_run'])) {
-        $_SESSION['first_run'] = 1;
-        include "./processing/initial.php";
-    }
-
+    include "./processing/initial.php";
+    
     $getPage = $_GET['page'];
     $getID = $_GET['id'];
     if($getPage == 'home' or empty($getPage)) {
@@ -15,6 +12,9 @@
     }
     elseif($getPage == "add-products") {
         header("Location: add-products.php");
+    }
+    elseif($getPage == "product-view") {
+        header("Location: product-view.php?id=$getID");
     }
     elseif($getPage == "edit-products") {
         header("Location: edit-products.php?id=$getID");

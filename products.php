@@ -27,7 +27,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="index.php?page=home">Home</a>
                             </li>
@@ -60,26 +60,34 @@
                                 }
                             ?>
                         </ul>
-                        <form class="d-flex" method="POST">
-                            <input class="form-control me-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-light" name="product-search" type="submit">Search</button>
-                        </form>
                     </div>
                 </div>
             </nav>
         </div>
 
-        <div id="content">
+        <div id="content" class="mt-5">
             <section class="vh-100" style="background-color: #000;">
-                <div class="container py-5 h-100">
+                <div class="container-md h-100">
                     <div class="row d-flex align-items-center h-100">
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h2>Products</h2>
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-md-6">
+                                            <h2 class="m-0">Products</h2>
+                                        </div>
+                                        <div class="col-md-3 my-1 text-right">
+                                            <b>
+                                                Number of products: <span id="products-num"></span>
+                                            </b>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input class="form-control" name="search" type="text" placeholder="Search here" onkeyup="load_products(this.value);">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body p-5">
-                                    <table class="table table-bordered">
+                                <div class="card-body p-4">
+                                    <table class="table table-bordered mb-0">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -98,48 +106,7 @@
                                                 ?>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <?php
-                                                if(isset($_POST["product-search"])) {
-                                                    $keyword = $_POST["keyword"];
-                                                    $product = getBySearch($keyword);
-                                                } else {
-                                                    $product = getAll();
-                                                }
-
-                                                if(mysqli_num_rows($product) > 0) {
-                                                    foreach($product as $item) {
-                                                        ?>
-                                                        <tr>
-                                                            <td> <?= $item['id']; ?></td>
-                                                            <td> <?= $item['category']; ?></td>
-                                                            <td> <?= $item['name']; ?></td>
-                                                            <td>
-                                                                <img src="./uploads/<?= $item['image']; ?>" width="50px" height="50px" alt="<?= $item['name']; ?>">
-                                                            </td>
-                                                            <td> <?= $item['description']; ?></td>
-                                                            <td> $<?= $item['price']; ?></td>
-                                                        <?php
-                                                            if($user_permission == 'admin') {
-                                                                ?>
-                                                                <td>
-                                                                    <a href="index.php?page=edit-products&id=<?= $item['id']; ?>" class="btn btn-dark">Edit</a>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="index.php?page=delete-products&id=<?= $item['id']; ?>" class="btn btn-dark">Remove</a>
-                                                                </td>
-                                                                <?php
-                                                            }
-                                                            ?>
-                                                        </tr>
-                                                        <?php
-                                                    }
-                                                }
-                                                else {
-                                                    echo "No records found";
-                                                }
-                                            ?>
-                                        </tbody>
+                                        <tbody id="products-list"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -155,5 +122,57 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        load_products();
+
+        function load_products(query = '') {
+            var form_data = new FormData();
+            form_data.append('search', query);
+
+            var ajax_request = new XMLHttpRequest();
+            ajax_request.open("POST", "live-search.php");
+            ajax_request.send(form_data);
+
+            ajax_request.onreadystatechange = function() {
+                if(ajax_request.readyState == 4 && ajax_request.status == 200) {
+                    var response = JSON.parse(ajax_request.responseText);
+
+                    var html = '';
+
+                    var user_permission = '<?php echo $user_permission; ?>';
+
+                    for(var count = 0; count < response.length; count++) {
+                        html += '<tr>';
+
+                        html += '<td>' + response[count].id + '</td>';
+
+                        html += '<td>' + response[count].category + '</td>';
+
+                        html += '<td><a class="text-primary" href="index.php?page=product-view&id=' + response[count].id + '">' + response[count].name + '</a></td>';
+
+                        html += '<td><img src="./uploads/' + response[count].image + '" width="50px" height="50px" alt="' + response[count].name + '"></td>';
+
+                        html += '<td>' + response[count].description + '</td>';
+
+                        html += '<td>$' + response[count].price + '</td>';
+
+                        if(user_permission == 'admin') {
+                            html += '<td><a href="index.php?page=edit-products&id=' + response[count].id + '" class="btn btn-dark">Edit</a></td>';
+                            html += '<td><a href="index.php?page=delete-products&id=' + response[count].id + '" class="btn btn-dark">Remove</a></td>';
+                        }
+
+                        html += '</tr>';
+                    }
+
+                    if(count == 0) {
+                        html = '<b>No records found.</b>';
+                    }
+
+                    document.getElementById('products-list').innerHTML = html;
+                    document.getElementById('products-num').innerHTML = count;
+                }
+            }
+        }
+    </script>
 </body>
 </html>

@@ -104,54 +104,54 @@
                 <?php
             } else {
                 ?>
-                <div id="content">
+                <div id="content" class="mt-4">
                     <section class="vh-100" style="background-color: #000;">
-                        <div class="container py-5 h-100">
+                        <div class="container-lg h-100">
                             <div class="row d-flex justify-content-around align-items-center h-100">
-                                <div class="col-md-4">
-                                    <div class="card">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-5">
+                                    <div class="card border-start border-4 border-primary">
                                         <div class="card-body p-4">
                                             <div class="row d-flex justify-content-around align-items-center text-center">
-                                                <div class="col-md-4 border-end">
+                                                <div class="col-md-4">
                                                     <i class="fa-solid fa-user dashboard-icon"></i>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <div class="row">
-                                                        <h2>Users</h2>
+                                                    <div class="row mt-3">
+                                                        <h1 class="text-primary">Users</h1>
                                                     </div>
-                                                    <div class="row">
-                                                        <h2>
+                                                    <div class="row mt-3">
+                                                        <h1>
                                                             <?php
                                                                 $users_query = mysqli_query($conn, "SELECT * FROM users");
                                                                 $num_of_users = mysqli_num_rows($users_query);
                                                                 echo $num_of_users;
                                                             ?>
-                                                        </h2>
+                                                        </h1>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="card">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-5">
+                                    <div class="card border-start border-4 border-success">
                                         <div class="card-body p-4">
                                             <div class="row d-flex justify-content-around align-items-center text-center">
-                                                <div class="col-md-4 border-end">
+                                                <div class="col-md-4">
                                                     <i class="fa-solid fa-mobile dashboard-icon"></i>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <div class="row">
-                                                        <h2>Products</h2>
+                                                    <div class="row mt-3">
+                                                        <h1 class="text-success">Products</h1>
                                                     </div>
-                                                    <div class="row">
-                                                        <h2>
+                                                    <div class="row mt-3">
+                                                        <h1>
                                                             <?php
                                                                 $products_query = mysqli_query($conn, "SELECT * FROM products");
                                                                 $num_of_products = mysqli_num_rows($products_query);
                                                                 echo $num_of_products;
                                                             ?>
-                                                        </h2>
+                                                        </h1>
                                                     </div>
                                                 </div>
                                             </div>

@@ -49,7 +49,7 @@
             </nav>
         </div>
 
-        <div class="content">
+        <div id="content" class="mt-4">
             <section class="vh-100" style="background-color: #000;">
                 <div class="container py-5 h-100">
                     <div class="row d-flex justify-content-center align-items-center h-100">

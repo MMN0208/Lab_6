@@ -51,9 +51,9 @@
             </nav>
         </div>
 
-        <div class="content">
+        <div id="content" class="mt-4">
             <section class="vh-100" style="background-color: #000;">
-                <div class="container py-5 h-100">
+                <div class="container h-100">
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-md-10">
                             <?php
@@ -65,7 +65,7 @@
                                     $data = mysqli_fetch_array($product);
                                     ?>
                                     <div class="card">
-                                        <div class="card-header">
+                                        <div class="card-header d-flex align-items-center">
                                             <h2>Edit Product <?php echo $processing_check ?></h2>
                                         </div>
                                         <div class="card-body p-5">
@@ -93,23 +93,11 @@
                                                     <label for="">Category</label>
                                                     <select name="category" class="form-select form-control">
                                                         <?php
-                                                            if($data['category'] == 'iPhone') {
+                                                            $categories = array("iPhone", "iPad", "Mac");
+                                                            
+                                                            foreach($categories as $category) {
                                                                 ?>
-                                                                <option value="iPhone" selected>iPhone</option>
-                                                                <option value="iPad">iPad</option>
-                                                                <option value="Mac">Mac</option>
-                                                                <?php
-                                                            } elseif($data['category'] == 'iPad') {
-                                                                ?>
-                                                                <option value="iPhone">iPhone</option>
-                                                                <option value="iPad" selected>iPad</option>
-                                                                <option value="Mac">Mac</option>
-                                                                <?php
-                                                            } else {
-                                                                ?>
-                                                                <option value="iPhone">iPhone</option>
-                                                                <option value="iPad">iPad</option>
-                                                                <option value="Mac" selected>Mac</option>
+                                                                    <option value="<?= $category ?>" <?php echo ($category == $data['category'] ? 'selected' : ''); ?>><?= $category ?></option>
                                                                 <?php
                                                             }
                                                         ?>
@@ -128,10 +116,14 @@
                                     </div>
                                     <?php
                                 } else {
-                                    echo "Product not found";
+                                    ?>
+                                    <h2 class="text-white">Product not found</h2>
+                                    <?php
                                 }
                             } else {
-                                echo "ID missing from URL";
+                                ?>
+                                <h2 class="text-white">ID missing from URL</h2>
+                                <?php
                             }
                             ?>
                         </div>

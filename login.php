@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="main">
-    <div id="header">
+        <div id="header">
             <nav id="nav" class="navbar navbar-expand-lg navbar-dark py-2">
                 <div class="container-fluid">
                     <a class="store-name navbar-brand" href="index.php?page=home">MMN Store</a>
@@ -49,7 +49,7 @@
             </nav>
         </div>
 
-        <div class="content">
+        <div id="content" class="mt-4">
             <section class="vh-100" style="background-color: #000;">
                 <div class="container py-5 h-100">
                     <div class="row d-flex justify-content-center align-items-center h-100">
